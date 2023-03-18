@@ -8,17 +8,15 @@ namespace Lab_1_Linq
    public class ContentData : IContentData
 
     {
-      
-        
         public IEnumerable<Car> Cars => new List<Car>()
         {
-        new Car() {Id=1,Brand=CarBrand.BMW,Model="M5",BodyType=CarBodyType.sedan,VIN="1231413432",Manufacturer="Germany",Year=2010,Color=CarColor.Black,LicensePlate="АМ1234КМ",TechnicalCondition=CarTechinacalCondition.After_the_crash,owner=owner1},
-        new Car() {Id=2,Brand=CarBrand.Audi,Model="A34",BodyType=CarBodyType.univercsal,VIN="2343413432",Manufacturer="Germany",Year=2009,Color=CarColor.White,LicensePlate="АМ3243КП",TechnicalCondition=CarTechinacalCondition.New,owner=owner2},
-        new Car() {Id=3,Brand=CarBrand.Bugatti,Model="Veyron",BodyType=CarBodyType.univercsal,VIN="7568765467",Manufacturer="France",Year=2008,Color=CarColor.Green,LicensePlate="АК7777НВ",TechnicalCondition=CarTechinacalCondition.Working,owner=owner3},
-        new Car() {Id=4,Brand=CarBrand.Opel,Model="R3",BodyType=CarBodyType.sedan,VIN="1232973332",Manufacturer="France",Year=2017,Color=CarColor.Grey,LicensePlate="АК1534АС",TechnicalCondition=CarTechinacalCondition.After_the_crash,owner=owner4},
-        new Car() {Id=5,Brand=CarBrand.Tayota,Model="G5",BodyType=CarBodyType.sedan,VIN="3457213432",Manufacturer="Japan",Year=2015,Color=CarColor.Black,LicensePlate="АП2343НА",TechnicalCondition=CarTechinacalCondition.After_the_crash,owner=owner5},
-        new Car() {Id=6,Brand=CarBrand.BMW,Model="M435",BodyType=CarBodyType.hatchback,VIN="5263748368",Manufacturer="Germany",Year=2012,Color=CarColor.White,LicensePlate="КМ3243ТР",TechnicalCondition=CarTechinacalCondition.New,owner=owner6},
-        new Car() {Id=7,Brand=CarBrand.Tayota,Model="M12",BodyType=CarBodyType.hatchback,VIN="0423943432",Manufacturer="Japan",Year=2013,Color=CarColor.Black,LicensePlate="АЕ2342РС",TechnicalCondition=CarTechinacalCondition.Working,owner=owner7}
+        new Car() {Id=1,Brand=CarBrand.BMW,Model="M5",BodyType=CarBodyType.sedan,VIN="1231413432",Manufacturer="Germany",Year=2010,Color=CarColor.Black,LicensePlate="АМ1234КМ",TechnicalCondition=CarTechinacalCondition.AfterTheCrash},
+        new Car() {Id=2,Brand=CarBrand.Audi,Model="A34",BodyType=CarBodyType.univercsal,VIN="2343413432",Manufacturer="Germany",Year=2009,Color=CarColor.White,LicensePlate="АМ3243КП",TechnicalCondition=CarTechinacalCondition.New},
+        new Car() {Id=3,Brand=CarBrand.Bugatti,Model="Veyron",BodyType=CarBodyType.univercsal,VIN="7568765467",Manufacturer="France",Year=2008,Color=CarColor.Green,LicensePlate="АК7777НВ",TechnicalCondition=CarTechinacalCondition.Working},
+        new Car() {Id=4,Brand=CarBrand.Opel,Model="R3",BodyType=CarBodyType.sedan,VIN="1232973332",Manufacturer="France",Year=2017,Color=CarColor.Grey,LicensePlate="АК1534АС",TechnicalCondition=CarTechinacalCondition.AfterTheCrash},
+        new Car() {Id=5,Brand=CarBrand.Tayota,Model="G5",BodyType=CarBodyType.sedan,VIN="3457213432",Manufacturer="Japan",Year=2015,Color=CarColor.Black,LicensePlate="АП2343НА",TechnicalCondition=CarTechinacalCondition.AfterTheCrash},
+        new Car() {Id=6,Brand=CarBrand.BMW,Model="M435",BodyType=CarBodyType.hatchback,VIN="5263748368",Manufacturer="Germany",Year=2012,Color=CarColor.White,LicensePlate="КМ3243ТР",TechnicalCondition=CarTechinacalCondition.New},
+        new Car() {Id=7,Brand=CarBrand.Tayota,Model="M12",BodyType=CarBodyType.hatchback,VIN="0423943432",Manufacturer="Japan",Year=2013,Color=CarColor.Black,LicensePlate="АЕ2342РС",TechnicalCondition=CarTechinacalCondition.Working}
         };
 
         private Owner owner1 = new Owner() 
@@ -51,7 +49,6 @@ namespace Lab_1_Linq
             DriverLicenseNumber = "56765543545",
             RegistrationAddress = "Котляревського 4А"
         };
-
         private Owner owner4 = new Owner()
         {
             Id = 4,
@@ -62,7 +59,6 @@ namespace Lab_1_Linq
             DriverLicenseNumber = "96786574565",
             RegistrationAddress = "Мічурина 7"
         };
-
         private Owner owner5 = new Owner()
         {
             Id = 5,
@@ -73,7 +69,6 @@ namespace Lab_1_Linq
             DriverLicenseNumber = "96796756756",
             RegistrationAddress = "Шевченка 45/А"
         };
-
         private Owner owner6 = new Owner()
         {
             Id = 6,
@@ -169,30 +164,6 @@ namespace Lab_1_Linq
         };
 
        
-
-        public  void AddToCollection(IEnumerable<Car> car, IEnumerable<Driver> drivers, IEnumerable<DriversCar> driverscars)
-        {
-            
-            foreach (var item in car)
-            {
-                item.Drivers = new List<Driver>();
-                foreach (var item2 in driverscars)
-                {
-                    if (item.Id==item2.CarId) 
-                    {
-                        foreach (var item3 in drivers)
-                        {
-                            if (item2.DriverId == item3.Id)
-                            {
-                                
-                                item.Drivers.Add(item3);
-                            }
-
-                        }
-                    }
-
-                }   
-            }
-        }
+      
     }
 }

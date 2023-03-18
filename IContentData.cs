@@ -7,7 +7,7 @@ namespace Lab_1_Linq
 {
     interface IContentData
     {
-        IEnumerable<Car> Cars { get;  }
+        IEnumerable<Car> Cars { get; }
         IEnumerable<Owner> Owners { get; }
 
         IEnumerable<Registration> Registrations { get; }

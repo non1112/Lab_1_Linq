@@ -10,16 +10,16 @@ namespace Lab_1_Linq
 
             Console.OutputEncoding = Encoding.Unicode;
           
-            ContentData dc = new ContentData();
+            IContentData dc = new ContentData();
             
-            DataRequest id = new DataRequest(dc);
+            IDataRequest id = new DataRequest(dc);
 
-            DataLogic dl = new DataLogic(id);
+            IDataOutput dl = new DataOutput(id);
 
-            Passage ps = new Passage(dl);
+            IPassage ps = new Passage(dl);
             
 
-            ps.Switch();
+            ps.Step();
            
 
 

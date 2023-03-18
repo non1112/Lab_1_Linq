@@ -1,95 +1,60 @@
 ﻿using System;
-
+using System.Collections.Generic;
 
 namespace Lab_1_Linq
+
+
+//code smell switch refactoring guru
 {
+    delegate void function();
     class Passage : IPassage
     {
-        private IDataLogic _dataLogic;
-        public Passage(IDataLogic dataLogic)
+        private IDataOutput _dataOutput;
+        public Passage(IDataOutput dataOutput)
         {
-            _dataLogic = dataLogic;
+            _dataOutput = dataOutput;
         }
 
-        public void Switch()
+        public void Step()
         {
-            int a = 0;
-            Message.WriteMassage(ConsoleColor.Green, "Введіть номер запиту (1-20) ");
-            
-            while (Int32.TryParse(Console.ReadLine(), out a))
+            var dictionary = new Dictionary<Comand, function>()
             {
+               { Comand.GetCarsBrand ,()=>_dataOutput.GetCarsBrand() },
+               { Comand.AvarageCarYear,() =>_dataOutput.AvarageCarYear() },
+               { Comand.FindRegestrationInDate,()=> _dataOutput.FindRegestrationInDate() },
+               { Comand.GetAllOwnerCar,()=>_dataOutput.GetAllOwnerCar()},
+               { Comand.GetCarsAfterYears,()=>_dataOutput.GetCarsAfterYears()},
+               { Comand.GetDriverForLastName,()=>_dataOutput.GetDriverForLastName() },
+               { Comand.GetDriverNotRegistrationAddres ,() => _dataOutput.GetDriverNotRegistrationAddres() },
+               { Comand.GetLicenseNumber,() =>_dataOutput.GetLicenseNumber() },
+               { Comand.GetOldesDriver,()=> _dataOutput.GetOldesDriver() },
+               { Comand.GetOwnerCar,()=>_dataOutput.GetOwnerCar()},
+               { Comand.GetOwnerForCondition,()=>_dataOutput.GetOwnerForCondition()},
+               { Comand.GetSortCarsTypeColor,()=>_dataOutput.GetSortCarsTypeColor() },
+               { Comand.GetYoungestOwner,() => _dataOutput.GetYoungestOwner() },
+               { Comand.GroupCarManufacture,() =>_dataOutput.GroupCarManufacture() },
+               { Comand.GroupDriverOwnerCar,()=> _dataOutput.GroupDriverOwnerCar() },
+               { Comand.SortAllCars,()=>_dataOutput.SortAllCars()},
+               { Comand.SortCarTechnicalCondition,()=>_dataOutput.SortCarTechnicalCondition()},
+               { Comand.UseElementAt,()=>_dataOutput.UseElementAt() },
+               { Comand.UseSkip ,() => _dataOutput.UseSkip() },
+               { Comand.ValueCarManufacture,() =>_dataOutput.ValueCarManufacture() },
+               { Comand.Exit,() =>_dataOutput.Exit() },
 
-                if (a > 0 && a <= 20)
+           };
+            Message.WriteMassage(ConsoleColor.DarkYellow, "Введіть номер запиту від 1-20. Для завершення програми напишіть 0. ");
+            while (true)
+            {
+                string number = Console.ReadLine();
+                if(Enum.TryParse(number,out Comand comand) && dictionary.ContainsKey(comand))
                 {
-                    switch (a)
-                    {
-                        case 1:
-                            _dataLogic.AvarageCarYear();
-                            break;
-                        case 2:
-                            _dataLogic.FindRegestrationInDate();
-                            break;
-                        case 3:
-                            _dataLogic.GetAllOwnerCar();
-                            break;
-                        case 4:
-                            _dataLogic.GetCarsAfterYears();
-                            break;
-                        case 5:
-                            _dataLogic.GetCarsBrand();
-                            break;
-                        case 6:
-                            _dataLogic.GetDriverForLastName();
-                            break;
-                        case 7:
-                            _dataLogic.GetDriverNotRegistrationAddres();
-                            break;
-                        case 8:
-                            _dataLogic.GetOwnerCar();
-                            break;
-                        case 9:
-                            _dataLogic.GetSortCarsTypeColor();
-                            break;
-                        case 10:
-                            _dataLogic.GetYoungestOwner();
-                            break;
-                        case 11:
-                            _dataLogic.GroupCarManufacture();
-                            break;
-                        case 12:
-                            _dataLogic.GroupDriverOwnerCar();
-                            break;
-                        case 13:
-                            _dataLogic.SortAllCars();
-                            break;
-                        case 14:
-                            _dataLogic.SortCarTechnicalCondition();
-                            break;
-                        case 15:
-                            _dataLogic.UseSkip();
-                            break;
-                        case 16:
-                            _dataLogic.UseElementAt();
-                            break;
-                        case 17:
-                            _dataLogic.GetCarsForCondition();
-                            break;
-                        case 18:
-                            _dataLogic.GetOldesDriver();
-                            break;
-                        case 19:
-                            _dataLogic.GetOwnerForCondition();
-                            break;
-                        case 20:
-                            _dataLogic.ValueCarManufacture();
-                            break;
-
-                    }
+                    dictionary[comand]();
                 }
                 else
-                { Message.WriteMassage(ConsoleColor.DarkRed, "Не коректний ввід даних.Введіть номер в проміжку 1 - 20"); }
+                {
+                    Message.WriteMassage(ConsoleColor.DarkRed, "НЕ вірно ведене число , введіть число від 1-20");
+                }
             }
-            
         }
     }
 }

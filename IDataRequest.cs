@@ -18,7 +18,7 @@ namespace Lab_1_Linq
 
         IEnumerable<IGrouping<CarTechinacalCondition, Car>> GroupCarManufacture();
         IEnumerable<Owner> UseSkip(int index);
-        IEnumerable<OwneCar1<DateTime>> GetOwnerCar();
+        IEnumerable<OwnerWithDateRegistration> GetOwnerCar();
 
         IEnumerable<OwneCar> GetAllOwnerCar(string vin);
 
@@ -26,7 +26,7 @@ namespace Lab_1_Linq
 
         IEnumerable<ValueDriverCar> GroupDriverOwnerCar();
 
-        IEnumerable<OwneCar1<int>> FindRegestrationInDate(int year1,int year2);
+        IEnumerable<OwneCarYearRegistration> FindRegestrationInDate(int year1,int year2);
         int GetYoungestOwner();
         IEnumerable<Driver> GetDriverForLastName(string partLastName);
 
@@ -34,7 +34,8 @@ namespace Lab_1_Linq
 
         IEnumerable<Driver> GetDriverNotRegistrationAddres(string reg);
 
-        bool GetCarsForCondition(string l);
+        IEnumerable<string> GetLicenseNumber();
+
         Driver GetOldesDriver();
 
 

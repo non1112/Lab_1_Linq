@@ -1,12 +1,14 @@
 ﻿using Lab_1_Linq.Enums;
 using System;
+using System.Threading;
 
 namespace Lab_1_Linq
 {
-    class DataLogic : IDataLogic
+    //Logic doesn't know ANYTHING about output !! (DI and n-tier architecture)
+    class DataOutput : IDataOutput
     {
         private IDataRequest _dataRequest;
-        public DataLogic(IDataRequest dataRequest)
+        public DataOutput(IDataRequest dataRequest)
         {
             _dataRequest = dataRequest;
         }
@@ -26,7 +28,7 @@ namespace Lab_1_Linq
             Message.WriteMassage(ConsoleColor.DarkCyan, $"Фільтрація. Вивести всі регістрації у проміжку з {year1} по {year2}");
             foreach (var item in reg)
             {
-                Console.WriteLine($"  {item.Owner} - {item.Car}  registration in {item.DateRegistration}");
+                Console.WriteLine($"  {item.Owner} - {item.Car}  registration in {item.YearRegistartion}");
             }
 
         }
@@ -83,7 +85,7 @@ namespace Lab_1_Linq
             Message.WriteMassage(ConsoleColor.DarkCyan, $"Фільтрація та сортування. Вивести всі реєстрації  ");
             foreach (var item in ownercar)
             {
-                Console.WriteLine($"  {item.Owner} - {item.Car} registration {item.DateRegistration}");
+                Console.WriteLine($"  {item.Owner} - {item.Car} registration {item.Dateof}");
 
             }
         }
@@ -151,7 +153,7 @@ namespace Lab_1_Linq
 
         public void SortCarTechnicalCondition()
         {
-            const CarTechinacalCondition tech= CarTechinacalCondition.After_the_crash;
+            const CarTechinacalCondition tech= CarTechinacalCondition.AfterTheCrash;
             var cars = _dataRequest.SortCarTechnicalCondition(tech);
             Message.WriteMassage(ConsoleColor.DarkCyan, $"Сортування та фільтрація. Вивести всі машини станом {tech} ");
             foreach (var item in cars)
@@ -183,19 +185,14 @@ namespace Lab_1_Linq
             }
         }
 
-        public void GetCarsForCondition()
+        public void GetLicenseNumber()
         {
-            const string word = "АМ";
-            var car = _dataRequest.GetCarsForCondition(word);
-            Message.WriteMassage(ConsoleColor.DarkCyan, $"Використання Any. Перевірити чи є хоча б одна машина з номерним знаком {word} ");
-            Console.WriteLine(car);
-            if (car==true)
+           
+            var license = _dataRequest.GetLicenseNumber();
+            Message.WriteMassage(ConsoleColor.DarkCyan, $"Використання Concat. Вивести всі ліцензії ");
+            foreach (var item in license)
             {
-                Console.WriteLine($"  В реєстрі є хоча б одна машини з номером {word}");
-            }
-            else
-            {
-                Console.WriteLine($"  В реєстрі немає машини з номером {word}");
+                Console.WriteLine(item);
             }
         }
 
@@ -246,6 +243,12 @@ namespace Lab_1_Linq
             {
                 Console.WriteLine(" У когось з власників не коректно введені данні");
             }
+        }
+
+        public void Exit()
+        {
+            Thread.Sleep(1000);
+            Environment.Exit(0);
         }
     }
 }

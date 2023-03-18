@@ -14,19 +14,19 @@ namespace Lab_1_Linq
         {
             _dataContent = dataContent;
         }
-
+        // dont concat
         public double AvarageCarYear()
         {
             return _dataContent.Cars.Average(x => x.Year);
         }
         
-        public IEnumerable<OwneCar1<int>> FindRegestrationInDate(int year1, int year2 )
+        public IEnumerable<OwneCarYearRegistration> FindRegestrationInDate(int year1, int year2 )
         {
             return from registration in _dataContent.Registrations
                    join owner in _dataContent.Owners on registration.OwnerId equals owner.Id
                    join car in _dataContent.Cars on registration.CarId equals car.Id
                    where registration.RegistrationDate.Year >= year1 && registration.RegistrationDate.Year <= year2
-                   select new OwneCar1<int> { Car = car, Owner = owner, DateRegistration = registration.RegistrationDate.Year };
+                   select new OwneCarYearRegistration { Car = car, Owner = owner, YearRegistartion = registration.RegistrationDate.Year };
 
 
         }
@@ -59,13 +59,13 @@ namespace Lab_1_Linq
             return _dataContent.Drivers.Where(x => x.LastName.Contains(partLastName));
         }
 
-        public IEnumerable<OwneCar1<DateTime>> GetOwnerCar()
+        public IEnumerable<OwnerWithDateRegistration> GetOwnerCar()
         {
             return from registration in _dataContent.Registrations
                    join owner in _dataContent.Owners on registration.OwnerId equals owner.Id
                    join car in _dataContent.Cars on registration.CarId equals car.Id
                    orderby car.Brand,car.Model,registration.RegistrationDate
-                   select new OwneCar1<DateTime> { Car = car, Owner = owner,DateRegistration=registration.RegistrationDate };
+                   select new OwnerWithDateRegistration { Car = car, Owner = owner,Dateof=registration.RegistrationDate };
         }
 
         public IEnumerable<ValueDriverCar> GroupDriverOwnerCar()
@@ -113,16 +113,12 @@ namespace Lab_1_Linq
         {
             return _dataContent.Drivers.Where(x => x.RegistrationAddress != reg);
         }
-
-        public bool GetCarsForCondition(string l)
-        {
-            
-            return _dataContent.Cars.Any(x=>x.LicensePlate.Contains(l));
-        }
+        
+     
 
         public Driver GetOldesDriver()
         {
-            return _dataContent.Drivers.Select(x=>x).OrderBy(x => x.DateOfBirth).FirstOrDefault();
+            return _dataContent.Drivers.OrderBy(x => x.DateOfBirth).FirstOrDefault();
         }
 
         public Owner UseElementAt(int index)
@@ -140,8 +136,9 @@ namespace Lab_1_Linq
             return _dataContent.Owners.All(x => x.DriverLicenseNumber.Length == lenght);
         }
 
-       
-     
-
+        public IEnumerable<string> GetLicenseNumber()
+        {
+            return _dataContent.Drivers.Select(x => x.DriverLicenseNumber).Concat(_dataContent.Owners.Select(x => x.DriverLicenseNumber)).Distinct();
+        }
     }
 }

@@ -11,8 +11,6 @@ namespace Lab_1_Linq.Class
         public int Id { get; set; }
         public int DriverId{ get; set; }
         public int CarId { get; set;}
-        public Driver driver{ get; set; }
 
-        
     }
 }

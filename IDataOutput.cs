@@ -1,9 +1,9 @@
 ﻿
 namespace Lab_1_Linq
 {
-    interface IDataLogic
+    interface IDataOutput
     {
-       void GetCarsBrand();
+        void GetCarsBrand();
         void GetCarsAfterYears();
 
         void SortAllCars();
@@ -25,13 +25,14 @@ namespace Lab_1_Linq
 
         void SortCarTechnicalCondition();
         void GetDriverNotRegistrationAddres();
-        void GetCarsForCondition();
+        void GetLicenseNumber();
         void GetOldesDriver();
         void UseElementAt();
 
         void ValueCarManufacture();
 
         void GetOwnerForCondition();
+        void Exit();
 
     }
 }
